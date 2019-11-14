@@ -3,7 +3,7 @@
         <div class="form-group" @submit.prevent="setLogin">
         <input v-model="username" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your username"/>
         </div>
-        <button type="submit" class="btn btn-outline-success">Dive In</button>
+        <button type="submit" class="btn btn-success">Dive In</button>
     </form>
 </template>
 
@@ -22,6 +22,7 @@ export default {
             for(let i = 0; i < 20; i++) {
                 token += library[Math.floor(Math.random() * library.length)]
             }
+            localStorage.setItem('username', this.username)
             localStorage.setItem('token', token)
             this.username = ''
             this.$.router.push('/rooms')
@@ -30,5 +31,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+form {
+    width: 500px;
+}
 </style>
