@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="row bg-dark mx-5 mt-5" style="height: 450px;">
+    <div class="row box-card mx-5 mt-5" style="height: 600px;">
       <div
         class="card mx-auto mt-3"
         id="card"
@@ -30,11 +30,15 @@
         :key="room.id"
       >
         <div class="card-body">
-          <h5 class="card-title pt-4">{{room.id}}</h5>
+          <h5 class="card-title pt-4">{{room.name}}</h5>
           <i class="fas fa-user-friends mt-2"></i>
           {{room.total}}
           <br />
-          <button type="button" class="btn btn-dark mt-3">Enter Room</button>
+          <button
+            type="button"
+            @click="enterRoom(room.total, room.id)"
+            class="btn btn-dark mt-3"
+          >Enter Room</button>
         </div>
       </div>
     </div>
@@ -43,6 +47,7 @@
 
 <script>
 import { mapState } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -52,20 +57,56 @@ export default {
   },
   methods: {
     createRoom() {
-      this.$store
-        .dispatch("createRoom", this.name)
-        .then(() => {
-          console.log("masuk");
-          this.$store.dispatch("getDataRooms");
-        })
-        .catch(error => {
-          console.error("Error writing document: ", error);
-        });
+      if (this.name) {
+        let newRoom = {
+          master: localStorage.getItem("token"),
+          name: this.name,
+          members: [
+            {
+              id: localStorage.getItem("token"),
+              name: localStorage.getItem("username")
+            }
+          ],
+          memberScores: [],
+          status: true,
+          createdAt: new Date()
+        };
+        this.$store.dispatch("createRoom", newRoom);
+      } else {
+        console.log("noooo");
+      }
+      this.name = "";
     },
-
+    // createRoom() {
+    //   this.$store
+    //     .dispatch("createRoom", this.name)
+    //     .then(() => {
+    //       console.log("masuk");
+    //       this.$store.dispatch("getDataRooms");
+    //     })
+    //     .catch(error => {
+    //       console.error("Error writing document: ", error);
+    //     });
+    // },
+    enterRoom(total, id) {
+      if (total < 5) {
+        let payload = {
+          roomId: id
+        };
+        this.$store.dispatch("joinRoom", payload);
+        this.$router.push(`/rooms/${id}`);
+      } else {
+        Swal.fire({
+        icon: "warning",
+        title: `Sorry this room full!`,
+        allowOutsideClick: false
+      })
+      }
+    },
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      this.$router.push(`/`);
     }
   },
   created() {
@@ -102,5 +143,11 @@ export default {
   transform: scale(
     1.2
   ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.box-card {
+  background-color: black;
+  opacity: 0.6;
+  border-radius: 15px;
 }
 </style>

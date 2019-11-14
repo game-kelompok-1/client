@@ -2,7 +2,7 @@
   <div class="lobby">
     <div style="margin-top: 8vh">
       <h1 style="color: white;">Game Lobby</h1>
-      <button type="button" class="btn btn-danger mr-2">Back</button>
+      <button type="button" @click="back" class="btn btn-danger mr-2">Back</button>
       <button type="button" @click="playGame" v-if="owner" class="btn btn-light">Start Game</button>
     </div>
     <table class="table table-dark">
@@ -24,56 +24,59 @@
 
 <script>
 export default {
-  name: 'lobby',
+  name: "lobby",
   data() {
     return {
-      // roomId: this.$route.params.id
+      roomId: this.$route.params.id
     };
   },
   computed: {
     members: {
       get() {
-        // return this.$store.state.dataMembers
+        return this.$store.state.dataMembers;
       },
       set() {}
     },
     owner: {
       get() {
-        return true // return this.$store.state.master === localStorage.getItem('token')
+        return this.$store.state.master === localStorage.getItem("token");
       },
       set() {}
     },
     startGame: {
       get() {
-        // return this.$store.state.startGame
+        return this.$store.state.startGame;
       },
       set() {}
     },
     membersName() {
-      let membersName = []
-      // this.members.forEach((el, i)=> {
-      //   let member = {
-      //     no: i+1,
-      //     name: el.name
-      //   }
-      //   membersName.push(member)
-      // })
-      return membersName
+      let membersName = [];
+      this.members.forEach((el, i) => {
+        let member = {
+          no: i + 1,
+          name: el.name
+        };
+        membersName.push(member);
+      });
+      return membersName;
     }
   },
   methods: {
     playGame() {
-      // this.$store.dispatch('startGame', this.roomId)
+      this.$store.dispatch("startGame", this.roomId);
+    },
+    back() {
+      this.$router.push(`/rooms`);
     }
   },
   created() {
-    // this.$store.dispatch('getMembers', this.roomId)
+    this.$store.dispatch("getMembers", this.roomId);
   },
   watch: {
     startGame() {
-      // if(this.startGame) {
-      //   this.$router.push(`/gameplay/${this.roomId}`)
-      // }
+      if (this.startGame) {
+        this.$router.push(`/game-start/${this.roomId}`);
+      }
     }
   }
 };
