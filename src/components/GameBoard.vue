@@ -53,10 +53,10 @@ export default {
       }
     },
     play() {
+      this.putar();
       setTimeout(() => {
         this.random1();
         this.random2();
-        this.putar();
       }, 1000);
       if (this.img1 == this.img2) {
         this.$store.dispatch("addScore", 10);

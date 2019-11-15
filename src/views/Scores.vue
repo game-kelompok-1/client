@@ -48,6 +48,7 @@ export default {
       this.$store.dispatch("deleteRoom", this.$route.params.id).then(() => {
         this.$router.push(`/rooms`);
       });
+      this.$store.dispatch("emptyScores")
     }
   },
   created() {}

@@ -33,6 +33,9 @@ export default new Vuex.Store({
     ADD_SCORE(state, payload) {
       state.score += payload
     },
+    EMPTY_SCORE(state, payload) {
+      state.memberScores = []
+    },
     DATA_MEMBERS(state, payload) {
       state.dataMembers = payload
     },
@@ -158,6 +161,10 @@ export default new Vuex.Store({
       commit
     }, payload) {
       commit("ADD_SCORE", payload)
+    },
+
+    emptyScores({ commit }) {
+      commit("EMPTY_SCORE")
     },
 
     setScore({
