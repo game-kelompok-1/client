@@ -47,7 +47,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getDataRooms({ commit }) {
+    getDataRooms({
+      commit
+    }) {
       let rooms = []
       db.collection('room').onSnapshot(querySnapshot => {
         querySnapshot.forEach(el => {
@@ -90,7 +92,9 @@ export default new Vuex.Store({
     //     commit("ROOMS", roomsTemp);
     //   })
     // },
-    createRoom({ commit }, payload) {
+    createRoom({
+      commit
+    }, payload) {
       db.collection('room').add(payload)
         .then(function (docRef) {
           commit('ENTERING_ROOM', docRef.id)
@@ -112,7 +116,9 @@ export default new Vuex.Store({
     //   })
     // },
 
-    joinRoom({ commit }, payload) {
+    joinRoom({
+      commit
+    }, payload) {
       let player = {
         name: localStorage.getItem('username'),
         id: localStorage.getItem('token'),
@@ -128,7 +134,9 @@ export default new Vuex.Store({
         })
         .then(doc => {
           if (doc.data().members.length >= 5) {
-            db.collection('room').doc(payload.roomId).update({ status: false })
+            db.collection('room').doc(payload.roomId).update({
+              status: false
+            })
           } else {
             commit('ENTERING_ROOM', payload.roomId)
             commit('PLAYER_IN_GAME', player)
@@ -138,17 +146,23 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    startGame({ commit }, payload) {
+    startGame({
+      commit
+    }, payload) {
       db.collection('room').doc(payload)
         .update({
           startGame: true
         })
     },
-    addScore({ commit }, payload) {
+    addScore({
+      commit
+    }, payload) {
       commit("ADD_SCORE", payload)
     },
 
-    setScore({ commit }, payload) {
+    setScore({
+      commit
+    }, payload) {
       let player = {
         name: localStorage.getItem('username'),
         id: localStorage.getItem('token'),
@@ -169,7 +183,9 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    getMembers({ commit }, payload) {
+    getMembers({
+      commit
+    }, payload) {
       db.collection('room').doc(payload)
         .onSnapshot(doc => {
           let payload = doc.data().members
@@ -182,6 +198,10 @@ export default new Vuex.Store({
           commit('SET_SCORESLIST', scorelist)
         })
     },
+
+    deleteRoom(context, payload) {
+      return db.collection("room").doc(payload).delete()
+    }
   },
   modules: {}
 })
