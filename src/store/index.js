@@ -35,6 +35,7 @@ export default new Vuex.Store({
     },
     EMPTY_SCORE(state, payload) {
       state.memberScores = []
+      state.score = 0
     },
     DATA_MEMBERS(state, payload) {
       state.dataMembers = payload
@@ -101,6 +102,7 @@ export default new Vuex.Store({
       db.collection('room').add(payload)
         .then(function (docRef) {
           commit('ENTERING_ROOM', docRef.id)
+          commit("EMPTY_SCORE")
           // console.log(docRef)
           Swal.close()
           Swal.fire({
@@ -143,6 +145,7 @@ export default new Vuex.Store({
           } else {
             commit('ENTERING_ROOM', payload.roomId)
             commit('PLAYER_IN_GAME', player)
+            commit("EMPTY_SCORE")
           }
         })
         .catch(err => {
