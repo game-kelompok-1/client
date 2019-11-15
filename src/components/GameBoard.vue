@@ -53,9 +53,11 @@ export default {
       }
     },
     play() {
+      let sound = new sound('../assets/matched-tune.mp3')
       this.random1();
       this.random2();
       if (this.img1 == this.img2) {
+        sound.play();
         this.$store.dispatch("addScore", 10);
       }
       console.log(this.img1);
