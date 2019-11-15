@@ -53,13 +53,30 @@ export default {
       }
     },
     play() {
-      this.random1();
-      this.random2();
+      setTimeout(() => {
+        this.random1();
+        this.random2();
+        this.putar();
+      }, 1000);
       if (this.img1 == this.img2) {
         this.$store.dispatch("addScore", 10);
       }
-      console.log(this.img1);
-      console.log(this.img2);
+    },
+    putar() {
+      const img = ["fox", "wolf", "tiger"];
+      const waktuMulai = new Date().getTime();
+      let i = 0;
+
+      setInterval(function() {
+        if (new Date().getTime() - waktuMulai > 1000) {
+          clearInterval;
+          return;
+        }
+        this.img1 = img[i++];
+        if (i == img.length) i = 0;
+        this.img2 = img[i++];
+        if (i == img.length) i = 0;
+      }, 100);
     }
   },
   computed: {
