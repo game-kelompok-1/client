@@ -1,5 +1,5 @@
 <template>
-  <div v-if="login" id="rooms">
+  <div id="rooms">
     <button type="button" class="btn btn-danger ml-2" id="logout" @click="logout">Logout</button>
     <div class="container d-flex justify-content-center">
       <div class="row mt-5 ml-5">
@@ -20,12 +20,14 @@
         >Create Room</button>
       </div>
     </div>
-      <div v-if="loading" class="d-flex justify-content-center align-items-center" style="margin-top: 15vh">
-        <pacman-loader :loading="loading"></pacman-loader>
-      </div>
+    <div
+      v-if="loading"
+      class="d-flex justify-content-center align-items-center"
+      style="margin-top: 15vh"
+    >
+      <pacman-loader :loading="loading"></pacman-loader>
+    </div>
     <div v-if="!loading" class="row box-card mx-5 mt-5" style="height: 600px;">
-
-    <div class="row box-card mt-5" style="height: 600px; margin-right: 13vw;margin-left: 13vw; padding-top:2vw">
       <div
         class="card mx-auto mt-3"
         id="card"
@@ -48,12 +50,10 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapState } from "vuex";
 import Swal from "sweetalert2";
 import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
-
 export default {
   components: {
     PacmanLoader
@@ -62,8 +62,7 @@ export default {
     return {
       name: "",
       myactiveroom: "",
-      loading: false,
-      login: localStorage.getItem('token')
+      loading: false
     };
   },
   methods: {
@@ -138,7 +137,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 #rooms {
   height: 100vh;
@@ -148,30 +146,28 @@ export default {
   overflow: hidden;
   overflow-y: hidden;
 }
-
 #inputUsername {
   width: 60px;
 }
-
 #logout {
   float: right;
   margin: 40px;
-  margin-right: 3vw
 }
-
 #card {
   transition: transform 0.2s; /* Animation */
 }
-
 #card:hover {
   transform: scale(
     1.2
-  );
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
-
 .box-card {
   background-color: black;
   opacity: 0.6;
   border-radius: 15px;
 }
 </style>
+Collapse
+
+
+
