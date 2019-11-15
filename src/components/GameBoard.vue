@@ -59,7 +59,7 @@ export default {
       setTimeout(() => {
         this.random1();
         this.random2();
-      }, 1000);
+      }, 1200);
       if (this.img1 == this.img2) {
         this.soundSuccess.play();
         this.$store.dispatch("addScore", 10);
@@ -71,7 +71,6 @@ export default {
       const img = ["fox", "wolf", "tiger"];
       const waktuMulai = new Date().getTime();
       let i = 0;
-
       setInterval(function() {
         if (new Date().getTime() - waktuMulai > 1000) {
           clearInterval;
@@ -81,7 +80,7 @@ export default {
         if (i == img.length) i = 0;
         this.img2 = img[i++];
         if (i == img.length) i = 0;
-      }, 100);
+      }, 300);
     }
   },
   computed: {
