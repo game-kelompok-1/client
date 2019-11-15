@@ -53,12 +53,14 @@ export default {
       }
     },
     play() {
+      let sound = new sound('../assets/matched-tune.mp3')
       this.putar();
       setTimeout(() => {
         this.random1();
         this.random2();
       }, 1000);
       if (this.img1 == this.img2) {
+        sound.play();
         this.$store.dispatch("addScore", 10);
       }
     },
