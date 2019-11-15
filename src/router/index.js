@@ -8,41 +8,85 @@ import Lobby from '../views/Lobby.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/rooms',
-    name: 'rooms',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "rooms" */ '../views/RoomList.vue')
-  },
-  {
-    path: '/game-start/:id',
-    name: 'Game',
-    component: Game
-  },
-  {
-    path: '/scores',
-    name: 'Scores',
-    component: Scores
-  },
-  {
-    path: '/rooms/:id',
-    name: 'Lobby',
-    component: Lobby
+  path: '/',
+  name: 'home',
+  component: Home
+},
+{
+  path: '/about',
+  name: 'about',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: () => import( /* webpackChunkName: "about" */ '../views/About.vue'),
+  beforeEnter: (to, from, next) => {
+    if (from.name) {
+      next()
+    } else {
+      next('/')
+      localstorage.clear()
+    }
   }
+},
+{
+  path: '/rooms',
+  name: 'rooms',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: () => import( /* webpackChunkName: "rooms" */ '../views/RoomList.vue'),
+  beforeEnter: (to, from, next) => {
+    if (from.name) {
+      next()
+    } else {
+      next('/')
+      localstorage.clear()
+    }
+  }
+},
+{
+  path: '/game-start/:id',
+  name: 'Game',
+  component: Game,
+  beforeEnter: (to, from, next) => {
+    if (from.name) {
+      next()
+    } else {
+      next('/')
+      localstorage.clear()
+    }
+  }
+},
+{
+  path: '/scores',
+  name: 'Scores',
+  component: Scores,
+  beforeEnter: (to, from, next) => {
+    if (from.name) {
+      next()
+    } else {
+      next('/')
+      localstorage.clear()
+    }
+  }
+},
+{
+  path: '/rooms/:id',
+  name: 'Lobby',
+  component: Lobby,
+  beforeEnter: (to, from, next) => {
+    if (from.name) {
+      next()
+    } else {
+      next('/')
+      localstorage.clear()
+    }
+  }
+},
+{
+  path: '*',
+  redirect: '/'
+}
 ]
 
 const router = new VueRouter({

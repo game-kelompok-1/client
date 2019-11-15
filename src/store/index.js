@@ -103,7 +103,7 @@ export default new Vuex.Store({
           Swal.fire({
             title: 'Successfully Create',
             text: 'Room has been created',
-            type: 'success',
+            icon: 'success',
             timer: 2000,
             showConfirmButton: false
           })
@@ -177,6 +177,10 @@ export default new Vuex.Store({
           return db.collection('room').doc(payload.roomId).get()
         })
         .then(doc => {
+          db.collection('room').doc(payload)
+            .update({
+              startGame: false
+            })
           console.log('update memberScores')
         })
         .catch(err => {

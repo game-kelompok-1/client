@@ -52,7 +52,8 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      name: ""
+      name: "",
+      myactiveroom: ""
     };
   },
   methods: {
@@ -77,17 +78,6 @@ export default {
       }
       this.name = "";
     },
-    // createRoom() {
-    //   this.$store
-    //     .dispatch("createRoom", this.name)
-    //     .then(() => {
-    //       console.log("masuk");
-    //       this.$store.dispatch("getDataRooms");
-    //     })
-    //     .catch(error => {
-    //       console.error("Error writing document: ", error);
-    //     });
-    // },
     enterRoom(total, id) {
       if (total < 5) {
         let payload = {
@@ -97,10 +87,10 @@ export default {
         this.$router.push(`/rooms/${id}`);
       } else {
         Swal.fire({
-        icon: "warning",
-        title: `Sorry this room full!`,
-        allowOutsideClick: false
-      })
+          icon: "warning",
+          title: `Sorry this room full!`,
+          allowOutsideClick: false
+        });
       }
     },
     logout() {
@@ -109,10 +99,31 @@ export default {
       this.$router.push(`/`);
     }
   },
+  computed: {
+    activeRoom: {
+      get() {
+        return this.$store.state.myactiveroom;
+      },
+      set(value) {
+      }
+    },
+    rooms: {
+      get() {
+        return this.$store.state.rooms;
+      },
+      set(value) {
+      }
+    }
+  },
+  watch: {
+    activeRoom() {
+      this.$router.push(`/rooms/${this.activeRoom}`);
+    },
+    rooms() {}
+  },
   created() {
     this.$store.dispatch("getDataRooms");
-  },
-  computed: mapState(["rooms"])
+  }
 };
 </script>
 
