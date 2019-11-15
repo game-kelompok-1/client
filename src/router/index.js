@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Game from '../views/Game.vue'
-import Scores from '../views/Scores.vue'
 import Lobby from '../views/Lobby.vue'
 
 Vue.use(VueRouter)
@@ -60,7 +59,7 @@ const routes = [{
   {
     path: '/scores/:id',
     name: 'Scores',
-    component: Scores,
+    component: () => import( /* webpackChunkName: "scores" */ '../views/Scores.vue'),
     beforeEnter: (to, from, next) => {
       if (from.name) {
         next()
