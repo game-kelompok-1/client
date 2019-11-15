@@ -1,18 +1,42 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="home">
+    <div id="matchLogo">
+      <img src="../assets/match-random-logo.png" />
+    </div>
+    <UsernameForm class="formxxxx" />
+    <br />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import UsernameForm from "../components/UsernameForm";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    HelloWorld
+    UsernameForm
+  },
+  methods: {
+    auth() {
+      if (localStorage.getItem("token")) {
+        this.$router.push("/rooms");
+      }
+    }
+  },
+  created() {
+    this.auth()
   }
-}
+};
 </script>
+
+<style scoped>
+#home {
+  background-image: url("../assets/forest.jpg");
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+</style>
