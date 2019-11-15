@@ -4,6 +4,7 @@
       <h1 style="color: white;">Game Lobby</h1>
       <button type="button" @click="back" class="btn btn-danger mr-2">Back</button>
       <button type="button" @click="playGame" v-if="owner" class="btn btn-light">Start Game</button>
+      <button type="button" @click="deleteRoom" v-if="owner" class="btn btn-dark ml-2">Delete Room</button>
     </div>
     <table class="table table-dark">
       <thead class="mb-2">
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "lobby",
   data() {
@@ -67,6 +69,21 @@ export default {
     },
     back() {
       this.$router.push(`/rooms`);
+    },
+    deleteRoom() {
+      this.$store
+        .dispatch("deleteRoom", this.roomId)
+        .then(() => {
+          this.$router.push("/rooms");
+          Swal.fire("Good job!", "Room Deleted", "success");
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!"
+          });
+        });
     }
   },
   created() {
