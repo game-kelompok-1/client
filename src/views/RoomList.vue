@@ -1,5 +1,5 @@
 <template>
-  <div id="rooms">
+  <div v-if="login" id="rooms">
     <button type="button" class="btn btn-danger ml-2" id="logout" @click="logout">Logout</button>
     <div class="container d-flex justify-content-center">
       <div class="row mt-5 ml-5">
@@ -24,6 +24,8 @@
         <pacman-loader :loading="loading"></pacman-loader>
       </div>
     <div v-if="!loading" class="row box-card mx-5 mt-5" style="height: 600px;">
+
+    <div class="row box-card mt-5" style="height: 600px; margin-right: 13vw;margin-left: 13vw; padding-top:2vw">
       <div
         class="card mx-auto mt-3"
         id="card"
@@ -60,7 +62,8 @@ export default {
     return {
       name: "",
       myactiveroom: "",
-      loading: false
+      loading: false,
+      login: localStorage.getItem('token')
     };
   },
   methods: {
@@ -153,6 +156,7 @@ export default {
 #logout {
   float: right;
   margin: 40px;
+  margin-right: 3vw
 }
 
 #card {
@@ -162,7 +166,7 @@ export default {
 #card:hover {
   transform: scale(
     1.2
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  );
 }
 
 .box-card {

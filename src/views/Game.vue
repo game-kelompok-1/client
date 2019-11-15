@@ -34,7 +34,6 @@ export default {
         allowOutsideClick: false
       })
         .then(value => {
-          console.log("then swal");
           let payload = {
             roomId: this.$route.params.id,
             score: this.$store.state.score

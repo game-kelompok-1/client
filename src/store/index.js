@@ -78,24 +78,6 @@ export default new Vuex.Store({
         rooms = []
       })
     },
-    // getDataRooms({
-    //   commit
-    // }) {
-    //   let roomsTemp = [];
-    //   db.collection("rooms").onSnapshot(querySnapshot => {
-    //     querySnapshot.forEach(doc => {
-    //       let obj = {
-    //         id: doc.id
-    //       }
-    //       obj.members = doc.data().members
-    //       obj.total = obj.members.length
-    //       obj.status = doc.data().status
-    //       obj.startGame = doc.data().startGame
-    //       roomsTemp.push(obj);
-    //     })
-    //     commit("ROOMS", roomsTemp);
-    //   })
-    // },
     createRoom({
       commit
     }, payload) {
@@ -103,7 +85,6 @@ export default new Vuex.Store({
         .then(function (docRef) {
           commit('ENTERING_ROOM', docRef.id)
           commit("EMPTY_SCORE")
-          // console.log(docRef)
           Swal.close()
           Swal.fire({
             title: 'Successfully Create',
@@ -114,13 +95,6 @@ export default new Vuex.Store({
           })
         })
     },
-    // createRoom({commit}, payload) {
-    //   db.collection("rooms").doc(payload).set({
-    //     members: [],
-    //     status: true,
-    //   })
-    // },
-
     joinRoom({
       commit
     }, payload) {

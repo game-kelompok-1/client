@@ -27,68 +27,59 @@ export default {
   data() {
     return {
       score: 0,
-      img1: "fox",
-      img2: "fox",
-      soundSuccess: new Audio('https://storage.cloud.google.com/sigitarprasetyo/matched-tune.mp3'),
-      soundFail: new Audio('https://storage.cloud.google.com/sigitarprasetyo/match-failed.mp3')
+      img1: "fox.png",
+      img2: "fox.png",
+      img: ["wika.jpeg", "rubhi.jpeg", "hardhim.jpg"],
+      soundSuccess: new Audio(
+        "https://storage.cloud.google.com/sigitarprasetyo/matched-tune.mp3"
+      ),
+      soundFail: new Audio(
+        "https://storage.cloud.google.com/sigitarprasetyo/match-failed.mp3"
+      )
     };
   },
   methods: {
     random1() {
       let randomAngka1 = Math.random();
       if (randomAngka1 < 0.34) {
-        this.img1 = "fox";
+        this.img1 = "wika.jpeg";
       } else if (randomAngka1 >= 0.34 && randomAngka1 < 0.67) {
-        this.img1 = "wolf";
+        this.img1 = "rubhi.jpeg";
       } else {
-        this.img1 = "tiger";
+        this.img1 = "hardhim.jpg";
       }
     },
     random2() {
       let randomAngka2 = Math.random();
       if (randomAngka2 < 0.34) {
-        this.img1 = "fox";
+        this.img1 = "wika.jpeg";
       } else if (randomAngka2 >= 0.34 && randomAngka2 < 0.67) {
-        this.img2 = "wolf";
+        this.img2 = "rubhi.jpeg";
       } else {
-        this.img2 = "tiger";
+        this.img2 = "hardhim.jpg";
       }
     },
     play() {
-      this.putar();
       setTimeout(() => {
         this.random1();
         this.random2();
-      }, 1200);
-      if (this.img1 == this.img2) {
-        this.soundSuccess.play();
-        this.$store.dispatch("addScore", 10);
-      } else {
-        this.soundFail.play()
-      }
-    },
-    putar() {
-      const img = ["fox", "wolf", "tiger"];
-      const waktuMulai = new Date().getTime();
-      let i = 0;
-      setInterval(function() {
-        if (new Date().getTime() - waktuMulai > 1000) {
-          clearInterval;
-          return;
+      }, 10);
+      setTimeout(() => {
+        if (this.img1 == this.img2) {
+          this.soundSuccess.play();
+          this.$store.dispatch("addScore", 10);
+        } else {
+          this.soundFail.play();
         }
-        this.img1 = img[i++];
-        if (i == img.length) i = 0;
-        this.img2 = img[i++];
-        if (i == img.length) i = 0;
-      }, 300);
+      }, 100);
     }
   },
   computed: {
     image1() {
-      return `https://storage.cloud.google.com/sigitarprasetyo/${this.img1}.png`;
+      return `https://storage.cloud.google.com/sigitarprasetyo/${this.img1}`;
     },
     image2() {
-      return `https://storage.cloud.google.com/sigitarprasetyo/${this.img2}.png`;
+      return `https://storage.cloud.google.com/sigitarprasetyo/${this.img2}`;
     }
   }
 };
