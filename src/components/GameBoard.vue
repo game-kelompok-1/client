@@ -28,7 +28,9 @@ export default {
     return {
       score: 0,
       img1: "fox",
-      img2: "fox"
+      img2: "fox",
+      soundSuccess: new Audio('https://storage.cloud.google.com/sigitarprasetyo/matched-tune.mp3'),
+      soundFail: new Audio('https://storage.cloud.google.com/sigitarprasetyo/match-failed.mp3')
     };
   },
   methods: {
@@ -53,15 +55,16 @@ export default {
       }
     },
     play() {
-      let sound = new sound('../assets/matched-tune.mp3')
       this.putar();
       setTimeout(() => {
         this.random1();
         this.random2();
       }, 1000);
       if (this.img1 == this.img2) {
-        sound.play();
+        this.soundSuccess.play();
         this.$store.dispatch("addScore", 10);
+      } else {
+        this.soundFail.play()
       }
     },
     putar() {
