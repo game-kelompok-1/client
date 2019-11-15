@@ -40,7 +40,7 @@ export default {
             score: this.$store.state.score
           };
           this.$store.dispatch('setScore', payload)
-          this.$router.push('/scores')
+          this.$router.push(`/scores/${this.$route.params.id}`)
         })
         .catch(err => {
           Swal(err);
