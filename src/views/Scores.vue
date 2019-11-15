@@ -2,6 +2,7 @@
   <div class="scores">
     <div style="margin-top: 8vh">
       <h1 style="color: white;">Final Score</h1>
+      <button type="button" @click="backToLobby" class="btn btn-secondary">Back to Lobby</button>
     </div>
     <table class="table">
       <thead class="thead-dark mb-2">
@@ -40,6 +41,11 @@ export default {
         return b.score - a.score;
       });
       return scoresArr;
+    }
+  },
+  methods: {
+    backToLobby() {
+      this.$router.push(`/rooms`)
     }
   },
   created() {}
