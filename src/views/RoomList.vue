@@ -20,8 +20,10 @@
         >Create Room</button>
       </div>
     </div>
-
-    <div class="row box-card mx-5 mt-5" style="height: 600px;">
+      <div v-if="loading" class="d-flex justify-content-center align-items-center" style="margin-top: 15vh">
+        <pacman-loader :loading="loading"></pacman-loader>
+      </div>
+    <div v-if="!loading" class="row box-card mx-5 mt-5" style="height: 600px;">
       <div
         class="card mx-auto mt-3"
         id="card"
@@ -48,12 +50,17 @@
 <script>
 import { mapState } from "vuex";
 import Swal from "sweetalert2";
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 
 export default {
+  components: {
+    PacmanLoader
+  },
   data() {
     return {
       name: "",
-      myactiveroom: ""
+      myactiveroom: "",
+      loading: false
     };
   },
   methods: {
@@ -104,15 +111,13 @@ export default {
       get() {
         return this.$store.state.myactiveroom;
       },
-      set(value) {
-      }
+      set(value) {}
     },
     rooms: {
       get() {
         return this.$store.state.rooms;
       },
-      set(value) {
-      }
+      set(value) {}
     }
   },
   watch: {
@@ -122,7 +127,11 @@ export default {
     rooms() {}
   },
   created() {
+    this.loading = true;
     this.$store.dispatch("getDataRooms");
+    setTimeout(() => {
+      this.loading = false;
+    }, 2500);
   }
 };
 </script>
